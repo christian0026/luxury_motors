@@ -1,0 +1,163 @@
+:root {
+    --primary-color: #d4af37;
+    --secondary-color: #1a1a1a;
+    --dark-color: #121212;
+    --light-color: #f8f9fa;
+}
+
+body {
+    font-family: 'Montserrat', sans-serif;
+    color: #fff;
+    background-color: var(--dark-color);
+    padding-top: 56px;
+}
+
+h1, h2, h3, h4, h5, h6 {
+    font-family: 'Playfair Display', serif;
+}
+
+.section-title {
+    font-weight: 700;
+    color: var(--primary-color);
+    position: relative;
+    display: inline-block;
+    margin-bottom: 15px;
+}
+
+.section-title:after {
+    content: '';
+    position: absolute;
+    width: 50px;
+    height: 2px;
+    background: var(--primary-color);
+    bottom: -10px;
+    left: 50%;
+    transform: translateX(-50%);
+}
+
+.section-subtitle {
+    color: #aaa;
+    font-size: 1.1rem;
+}
+
+.btn-primary {
+    background-color: var(--primary-color);
+    border-color: var(--primary-color);
+    color: #000;
+    font-weight: 600;
+}
+
+.btn-primary:hover {
+    background-color: #c9a227;
+    border-color: #c9a227;
+    color: #000;
+}
+
+.btn-outline-primary {
+    color: var(--primary-color);
+    border-color: var(--primary-color);
+}
+
+.btn-outline-primary:hover {
+    background-color: var(--primary-color);
+    color: #000;
+}
+
+.navbar {
+    background-color: rgba(0, 0, 0, 0.8) !important;
+    backdrop-filter: blur(10px);
+    padding: 15px 0;
+    transition: all 0.3s;
+}
+
+.navbar.scrolled {
+    padding: 10px 0;
+    background-color: rgba(0, 0, 0, 0.9) !important;
+}
+
+.nav-link {
+    font-weight: 500;
+    margin: 0 10px;
+    position: relative;
+}
+
+.nav-link:after {
+    content: '';
+    position: absolute;
+    width: 0;
+    height: 2px;
+    background: var(--primary-color);
+    bottom: 0;
+    left: 0;
+    transition: width 0.3s;
+}
+
+.nav-link:hover:after, .nav-link.active:after {
+    width: 100%;
+}
+
+.hero-section {
+    height: 100vh;
+    min-height: 600px;
+}
+
+.hero-section .carousel-item {
+    height: 100vh;
+    min-height: 600px;
+}
+
+.hero-section .carousel-item img {
+    object-fit: cover;
+    height: 100%;
+}
+
+.hero-section .carousel-caption {
+    bottom: 30%;
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+}
+
+.car-card {
+    border: none;
+    border-radius: 10px;
+    overflow: hidden;
+    transition: transform 0.3s, box-shadow 0.3s;
+    background-color: var(--secondary-color);
+}
+
+.car-card:hover {
+    transform: translateY(-10px);
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.3);
+}
+
+.car-card .card-img-top {
+    height: 200px;
+    object-fit: cover;
+}
+
+.car-card .card-title {
+    font-family: 'Playfair Display', serif;
+    font-weight: 600;
+}
+
+.car-card .car-specs {
+    color: #aaa;
+    font-size: 0.9rem;
+}
+
+.feature-icon i {
+    color: var(--primary-color);
+}
+
+.testimonial-item {
+    background-color: var(--secondary-color);
+    border-radius: 10px;
+}
+
+.testimonial-item img {
+    border: 3px solid var(--primary-color);
+}
+
+.testimonial-item p {
+    font-style: italic;
+    color: #ddd;
+}
