@@ -18,6 +18,7 @@
             <?php endif; ?>
             
             <form action="/admin/cars/save" method="post" enctype="multipart/form-data">
+                <?= csrf_field() ?>
                 <div class="row">
                     <div class="col-md-6">
                         <div class="mb-3">
@@ -94,3 +95,56 @@
                             <label for="top_speed" class="form-label">Top Speed (mph)</label>
                             <input type="number" class="form-control" id="top_speed" name="top_speed" value="<?= old('top_speed') ?>" required>
                         </div>
+                        
+                        <div class="mb-3">
+                            <label for="acceleration" class="form-label">0-60 mph (seconds)</label>
+                            <input type="number" class="form-control" id="acceleration" name="acceleration" step="0.1" value="<?= old('acceleration') ?>" required>
+                        </div>
+                        
+                        <div class="mb-3">
+                            <label for="fuel_type" class="form-label">Fuel Type</label>
+                            <input type="text" class="form-control" id="fuel_type" name="fuel_type" value="<?= old('fuel_type') ?>" required>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="row">
+                    <div class="col-md-6">
+                        <div class="mb-3">
+                            <label for="doors" class="form-label">Doors</label>
+                            <input type="number" class="form-control" id="doors" name="doors" min="1" max="6" value="<?= old('doors') ?>" required>
+                        </div>
+                    </div>
+                    
+                    <div class="col-md-6">
+                        <div class="mb-3">
+                            <label for="seats" class="form-label">Seats</label>
+                            <input type="number" class="form-control" id="seats" name="seats" min="1" max="10" value="<?= old('seats') ?>" required>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="mb-3">
+                    <label for="description" class="form-label">Description</label>
+                    <textarea class="form-control" id="description" name="description" rows="5" required><?= old('description') ?></textarea>
+                </div>
+                
+                <div class="mb-3 form-check">
+                    <input type="checkbox" class="form-check-input" id="featured" name="featured" value="1" <?= old('featured') ? 'checked' : '' ?>>
+                    <label class="form-check-label" for="featured">Featured Car</label>
+                </div>
+                
+                <div class="mb-3">
+                    <label for="images" class="form-label">Car Images</label>
+                    <input type="file" class="form-control" id="images" name="images[]" multiple required>
+                    <div class="form-text">Upload multiple images (max 10MB each)</div>
+                </div>
+                
+                <button type="submit" class="btn btn-primary">Add Car</button>
+                <a href="/admin/cars" class="btn btn-secondary">Cancel</a>
+            </form>
+        </main>
+    </div>
+</div>
+
+<?= view('admin/templates/footer') ?>
