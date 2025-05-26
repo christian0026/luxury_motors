@@ -31,7 +31,7 @@
 </section>
 
 <!-- Featured Cars Section -->
-<section class="py-5 bg-light">
+<section class="py-5 style="background-color: #393E46;">
     <div class="container">
         <div class="text-center mb-5">
             <h2 class="section-title">FEATURED VEHICLES</h2>
@@ -99,7 +99,7 @@
 </section>
 
 <!-- Testimonials Section -->
-<section class="py-5 bg-light">
+<section class="py-5 bstyle="background-color: #393E46;">
     <div class="container">
         <div class="text-center mb-5">
             <h2 class="section-title">CLIENT TESTIMONIALS</h2>
@@ -112,7 +112,7 @@
                     <div class="carousel-inner">
                         <div class="carousel-item active">
                             <div class="testimonial-item text-center p-4">
-                                <img src="/assets/images/testimonials/1.jpg" class="rounded-circle mb-3" width="80" alt="Client">
+                                <img src="/assets/images/testimonials/1.jfif" class="rounded-circle mb-3" width="80" alt="Client">
                                 <p class="mb-4">"Luxury Motors exceeded all my expectations. Their attention to detail and professionalism made the entire process seamless."</p>
                                 <h5>James Wilson</h5>
                                 <p class="text-muted">CEO, Tech Innovations</p>
@@ -120,7 +120,7 @@
                         </div>
                         <div class="carousel-item">
                             <div class="testimonial-item text-center p-4">
-                                <img src="/assets/images/testimonials/2.jpg" class="rounded-circle mb-3" width="80" alt="Client">
+                                <img src="/assets/images/testimonials/2.jfif" class="rounded-circle mb-3" width="80" alt="Client">
                                 <p class="mb-4">"I've purchased several cars through Luxury Motors and each experience has been exceptional. They truly understand luxury."</p>
                                 <h5>Sarah Johnson</h5>
                                 <p class="text-muted">Entrepreneur</p>
@@ -142,7 +142,7 @@
 </section>
 
 <!-- Call to Action -->
-<section class="py-5 bg-primary text-white text-center">
+<section class="py-5 text-dark text-center" style="background-color: #c9a227;">
     <div class="container">
         <h2 class="display-5 mb-4">READY TO FIND YOUR DREAM CAR?</h2>
         <p class="lead mb-4">Contact our team of specialists today</p>

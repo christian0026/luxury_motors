@@ -1,7 +1,7 @@
 <nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top">
     <div class="container">
         <a class="navbar-brand" href="/">
-            <img src="/assets/images/logos/logo.png" alt="Luxury Motors" height="40">
+            <img src="/assets/images/logos/logo.png" alt="Luxury Motors" height="70">
         </a>
         <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
             <span class="navbar-toggler-icon"></span>

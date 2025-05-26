@@ -19,9 +19,9 @@
                 <div class="col-md-4">
                     <h5>Contact Us</h5>
                     <address>
-                        <i class="fas fa-map-marker-alt"></i> 123 Luxury Avenue, Beverly Hills, CA<br>
-                        <i class="fas fa-phone"></i> (555) 123-4567<br>
-                        <i class="fas fa-envelope"></i> info@luxurymotors.com
+                        <i class="fas fa-map-marker-alt"></i> Biga 1, Silang, Cavite, Philippines<br>
+                        <i class="fas fa-phone"></i> (+63) 123-4567<br>
+                        <i class="fas fa-envelope"></i> luxurymotorssilang2025@gmail.com
                     </address>
                 </div>
             </div>
@@ -43,5 +43,8 @@
     
     <!-- Custom JS -->
     <script src="/assets/js/custom.js"></script>
+
+    <!-- EmailJS CDN -->
+    <script src="https://cdn.jsdelivr.net/npm/emailjs-com@3/dist/email.min.js"></script>
 </body>
 </html>

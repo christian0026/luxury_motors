@@ -1,6 +1,5 @@
 <?php
 $title = $title ?? 'Admin | Luxury Motors';
-$isAdmin = session()->get('is_admin');
 ?>
 
 <!DOCTYPE html>
@@ -23,7 +22,6 @@ $isAdmin = session()->get('is_admin');
     <link rel="icon" href="/assets/images/logos/favicon.ico">
 </head>
 <body>
-    <?php if ($isAdmin): ?>
     <header class="navbar navbar-dark sticky-top bg-dark flex-md-nowrap p-0 shadow">
         <a class="navbar-brand col-md-3 col-lg-2 me-0 px-3" href="/admin/dashboard">
             <img src="/assets/images/logos/logo-white.png" alt="Luxury Motors" height="30">
@@ -31,13 +29,6 @@ $isAdmin = session()->get('is_admin');
         <button class="navbar-toggler position-absolute d-md-none collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#sidebarMenu">
             <span class="navbar-toggler-icon"></span>
         </button>
-        <div class="navbar-nav">
-            <div class="nav-item text-nowrap">
-                <a class="nav-link px-3" href="/logout">Sign out</a>
-            </div>
-        </div>
     </header>
-    <?php endif; ?>
-    
     <div class="container-fluid">
         <div class="row">

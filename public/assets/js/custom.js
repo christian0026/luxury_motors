@@ -44,14 +44,20 @@ document.addEventListener('DOMContentLoaded', function() {
     });
     
     // Initialize carousels
-    const heroCarousel = new bootstrap.Carousel(document.getElementById('heroCarousel'), {
-        interval: 5000,
-        pause: false
-    });
+    const heroCarouselEl = document.getElementById('heroCarousel');
+    if (heroCarouselEl) {
+        new bootstrap.Carousel(heroCarouselEl, {
+            interval: 5000,
+            pause: false
+        });
+    }
     
-    const testimonialCarousel = new bootstrap.Carousel(document.getElementById('testimonialCarousel'), {
-        interval: 8000
-    });
+    const testimonialCarouselEl = document.getElementById('testimonialCarousel');
+    if (testimonialCarouselEl) {
+        new bootstrap.Carousel(testimonialCarouselEl, {
+            interval: 8000
+        });
+    }
     
     // Add fade-in animation to sections as they come into view
     const animateOnScroll = function() {
@@ -72,6 +78,39 @@ document.addEventListener('DOMContentLoaded', function() {
     
     // Run on scroll
     window.addEventListener('scroll', animateOnScroll);
+
+    // EmailJS integration for contact form
+    if (typeof emailjs !== 'undefined') {
+        emailjs.init('CpKQhsOMcXhaH8yX2'); 
+    }
+    const contactForm = document.getElementById('contactForm');
+    if (contactForm) {
+        contactForm.addEventListener('submit', function(e) {
+            e.preventDefault();
+            const formMessage = document.getElementById('formMessage');
+            formMessage.innerHTML = '';
+            formMessage.className = '';
+            const name = document.getElementById('name').value;
+            const email = document.getElementById('email').value;
+            const phone = document.getElementById('phone').value;
+            const message = document.getElementById('message').value;
+            // Show loading
+            formMessage.innerHTML = '<span class="text-info">Sending...</span>';
+            emailjs.send('service_qspbvdm', 'template_a5ts1p4', {
+                from_name: name,
+                from_email: email,
+                from_phone: phone,
+                message: message
+            })
+            .then(function(response) {
+                formMessage.innerHTML = '<span class="text-success">Thank you! Your message has been sent.</span>';
+                contactForm.reset();
+            }, function(error) {
+                console.log('EmailJS error:', error);
+                formMessage.innerHTML = '<span class="text-danger">Sorry, there was an error sending your message. Please try again later.</span>';
+            });
+        });
+    }
 });
 
 // Inventory Filter Form Submission

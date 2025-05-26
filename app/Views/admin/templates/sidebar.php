@@ -1,4 +1,3 @@
-<?php if (session()->get('is_admin')): ?>
 <nav id="sidebarMenu" class="col-md-3 col-lg-2 d-md-block bg-dark sidebar collapse">
     <div class="position-sticky pt-3">
         <ul class="nav flex-column">
@@ -14,19 +13,6 @@
                     Cars
                 </a>
             </li>
-            <li class="nav-item">
-                <a class="nav-link" href="#">
-                    <i class="fas fa-users me-2"></i>
-                    Users
-                </a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link" href="#">
-                    <i class="fas fa-envelope me-2"></i>
-                    Inquiries
-                </a>
-            </li>
         </ul>
     </div>
 </nav>
-<?php endif; ?>

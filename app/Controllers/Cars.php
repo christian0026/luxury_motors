@@ -59,19 +59,29 @@ class Cars extends BaseController
     public function view($id = null)
     {
         $car = $this->carsModel->getCarWithDetails($id);
-        
         if (empty($car)) {
             throw new \CodeIgniter\Exceptions\PageNotFoundException('Cannot find the car with ID: ' . $id);
         }
-
+        // Get all images for the car (featured + up to 6 gallery images)
+        $carDir = FCPATH . 'assets/images/cars/' . $car['id'] . '/';
+        $images = [];
+        if (is_dir($carDir)) {
+            if (file_exists($carDir . 'featured.jpg')) {
+                $images[] = '/assets/images/cars/' . $car['id'] . '/featured.jpg';
+            }
+            for ($i = 1; $i <= 6; $i++) {
+                $imgPath = $carDir . $i . '.jpg';
+                if (file_exists($imgPath)) {
+                    $images[] = '/assets/images/cars/' . $car['id'] . '/' . $i . '.jpg';
+                }
+            }
+        }
         $data = [
             'title' => $car['make'] . ' ' . $car['model'] . ' | Luxury Motors',
             'car' => $car,
+            'images' => $images,
             'similarCars' => $this->carsModel->getSimilarCars($car['make'], $car['id'])
         ];
-
-        return view('templates/header', $data)
-              . view('cars/view')
-              . view('templates/footer');
+        return view('cars/view', $data);
     }
 }

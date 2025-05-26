@@ -1,175 +1,174 @@
-<?= view('admin/templates/header', ['title' => 'Edit Car']) ?>
+<?= view('admin/templates/header', ['title' => $title ?? 'Edit Car']) ?>
+<?= view('admin/templates/sidebar') ?>
 
-<div class="container-fluid">
-    <div class="row">
-        <?= view('admin/templates/sidebar') ?>
-        
-        <main class="col-md-9 ms-sm-auto col-lg-10 px-md-4">
-            <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
-                <h1 class="h2">Edit Car: <?= $car['make'] ?> <?= $car['model'] ?></h1>
+<div class="col-md-9 ms-sm-auto col-lg-10 px-md-4">
+    <h2 class="mt-4 mb-4">Edit Car</h2>
+    <form action="/admin/cars/update/<?= esc($car['id']) ?>" method="post" enctype="multipart/form-data">
+        <?= csrf_field() ?>
+        <!-- Car Details -->
+        <div class="row g-3">
+            <div class="col-md-6">
+                <label for="make" class="form-label">Make</label>
+                <input type="text" class="form-control" id="make" name="make" value="<?= esc($car['make']) ?>" required>
             </div>
-            
-            <?php if (session()->has('message')): ?>
-                <div class="alert alert-success"><?= session('message') ?></div>
-            <?php endif; ?>
-            
-            <?php if (session()->has('errors')): ?>
-                <div class="alert alert-danger">
-                    <?php foreach (session('errors') as $error): ?>
-                        <p class="mb-1"><?= $error ?></p>
-                    <?php endforeach; ?>
-                </div>
-            <?php endif; ?>
-            
-            <form action="/admin/cars/update/<?= $car['id'] ?>" method="post" enctype="multipart/form-data">
-                <div class="row">
-                    <div class="col-md-6">
-                        <div class="mb-3">
-                            <label for="make" class="form-label">Make</label>
-                            <input type="text" class="form-control" id="make" name="make" value="<?= old('make', $car['make']) ?>" required>
-                        </div>
-                        
-                        <div class="mb-3">
-                            <label for="model" class="form-label">Model</label>
-                            <input type="text" class="form-control" id="model" name="model" value="<?= old('model', $car['model']) ?>" required>
-                        </div>
-                        
-                        <div class="mb-3">
-                            <label for="year" class="form-label">Year</label>
-                            <input type="number" class="form-control" id="year" name="year" min="1900" max="<?= date('Y')+1 ?>" value="<?= old('year', $car['year']) ?>" required>
-                        </div>
-                        
-                        <div class="mb-3">
-                            <label for="price" class="form-label">Price ($)</label>
-                            <input type="number" class="form-control" id="price" name="price" step="0.01" value="<?= old('price', $car['price']) ?>" required>
-                        </div>
-                        
-                        <div class="mb-3">
-                            <label for="mileage" class="form-label">Mileage</label>
-                            <input type="number" class="form-control" id="mileage" name="mileage" value="<?= old('mileage', $car['mileage']) ?>" required>
-                        </div>
-                        
-                        <div class="mb-3">
-                            <label for="transmission" class="form-label">Transmission</label>
-                            <select class="form-select" id="transmission" name="transmission" required>
-                                <option value="Automatic" <?= old('transmission', $car['transmission']) == 'Automatic' ? 'selected' : '' ?>>Automatic</option>
-                                <option value="Manual" <?= old('transmission', $car['transmission']) == 'Manual' ? 'selected' : '' ?>>Manual</option>
-                                <option value="Semi-Automatic" <?= old('transmission', $car['transmission']) == 'Semi-Automatic' ? 'selected' : '' ?>>Semi-Automatic</option>
-                            </select>
-                        </div>
-                        
-                        <div class="mb-3">
-                            <label for="body_type" class="form-label">Body Type</label>
-                            <select class="form-select" id="body_type" name="body_type" required>
-                                <option value="Coupe" <?= old('body_type', $car['body_type']) == 'Coupe' ? 'selected' : '' ?>>Coupe</option>
-                                <option value="Sedan" <?= old('body_type', $car['body_type']) == 'Sedan' ? 'selected' : '' ?>>Sedan</option>
-                                <option value="SUV" <?= old('body_type', $car['body_type']) == 'SUV' ? 'selected' : '' ?>>SUV</option>
-                                <option value="Convertible" <?= old('body_type', $car['body_type']) == 'Convertible' ? 'selected' : '' ?>>Convertible</option>
-                                <option value="Wagon" <?= old('body_type', $car['body_type']) == 'Wagon' ? 'selected' : '' ?>>Wagon</option>
-                                <option value="Hatchback" <?= old('body_type', $car['body_type']) == 'Hatchback' ? 'selected' : '' ?>>Hatchback</option>
-                            </select>
-                        </div>
-                    </div>
-                    
-                    <div class="col-md-6">
-                        <div class="mb-3">
-                            <label for="color" class="form-label">Color</label>
-                            <input type="text" class="form-control" id="color" name="color" value="<?= old('color', $car['color']) ?>" required>
-                        </div>
-                        
-                        <div class="mb-3">
-                            <label for="engine" class="form-label">Engine</label>
-                            <input type="text" class="form-control" id="engine" name="engine" value="<?= old('engine', $car['engine']) ?>" required>
-                        </div>
-                        
-                        <div class="mb-3">
-                            <label for="horsepower" class="form-label">Horsepower</label>
-                            <input type="number" class="form-control" id="horsepower" name="horsepower" value="<?= old('horsepower', $car['horsepower']) ?>" required>
-                        </div>
-                        
-                        <div class="mb-3">
-                            <label for="torque" class="form-label">Torque (lb-ft)</label>
-                            <input type="number" class="form-control" id="torque" name="torque" value="<?= old('torque', $car['torque']) ?>" required>
-                        </div>
-                        
-                        <div class="mb-3">
-                            <label for="top_speed" class="form-label">Top Speed (mph)</label>
-                            <input type="number" class="form-control" id="top_speed" name="top_speed" value="<?= old('top_speed', $car['top_speed']) ?>" required>
-                        </div>
-                        
-                        <div class="mb-3">
-                            <label for="acceleration" class="form-label">0-60 mph (seconds)</label>
-                            <input type="number" class="form-control" id="acceleration" name="acceleration" step="0.1" value="<?= old('acceleration', $car['acceleration']) ?>" required>
-                        </div>
-                        
-                        <div class="mb-3">
-                            <label for="fuel_type" class="form-label">Fuel Type</label>
-                            <input type="text" class="form-control" id="fuel_type" name="fuel_type" value="<?= old('fuel_type', $car['fuel_type']) ?>" required>
-                        </div>
-                    </div>
-                </div>
-                
-                <div class="row">
-                    <div class="col-md-6">
-                        <div class="mb-3">
-                            <label for="doors" class="form-label">Doors</label>
-                            <input type="number" class="form-control" id="doors" name="doors" min="1" max="6" value="<?= old('doors', $car['doors']) ?>" required>
-                        </div>
-                    </div>
-                    
-                    <div class="col-md-6">
-                        <div class="mb-3">
-                            <label for="seats" class="form-label">Seats</label>
-                            <input type="number" class="form-control" id="seats" name="seats" min="1" max="10" value="<?= old('seats', $car['seats']) ?>" required>
-                        </div>
-                    </div>
-                </div>
-                
-                <div class="mb-3">
-                    <label for="description" class="form-label">Description</label>
-                    <textarea class="form-control" id="description" name="description" rows="5" required><?= old('description', $car['description']) ?></textarea>
-                </div>
-                
-                <div class="mb-3 form-check">
-                    <input type="checkbox" class="form-check-input" id="featured" name="featured" value="1" <?= old('featured', $car['featured']) ? 'checked' : '' ?>>
+            <div class="col-md-6">
+                <label for="model" class="form-label">Model</label>
+                <input type="text" class="form-control" id="model" name="model" value="<?= esc($car['model']) ?>" required>
+            </div>
+            <div class="col-md-4">
+                <label for="year" class="form-label">Year</label>
+                <input type="number" class="form-control" id="year" name="year" value="<?= esc($car['year']) ?>" required>
+            </div>
+            <div class="col-md-4">
+                <label for="price" class="form-label">Price</label>
+                <input type="number" class="form-control" id="price" name="price" value="<?= esc($car['price']) ?>" required>
+            </div>
+            <div class="col-md-4">
+                <label for="mileage" class="form-label">Mileage</label>
+                <input type="number" class="form-control" id="mileage" name="mileage" value="<?= esc($car['mileage']) ?>" required>
+            </div>
+            <div class="col-md-4">
+                <label for="transmission" class="form-label">Transmission</label>
+                <input type="text" class="form-control" id="transmission" name="transmission" value="<?= esc($car['transmission']) ?>" required>
+            </div>
+            <div class="col-md-4">
+                <label for="body_type" class="form-label">Body Type</label>
+                <input type="text" class="form-control" id="body_type" name="body_type" value="<?= esc($car['body_type']) ?>" required>
+            </div>
+            <div class="col-md-4">
+                <label for="color" class="form-label">Color</label>
+                <input type="text" class="form-control" id="color" name="color" value="<?= esc($car['color']) ?>" required>
+            </div>
+            <div class="col-md-4">
+                <label for="engine" class="form-label">Engine</label>
+                <input type="text" class="form-control" id="engine" name="engine" value="<?= esc($car['engine']) ?>" required>
+            </div>
+            <div class="col-md-4">
+                <label for="horsepower" class="form-label">Horsepower</label>
+                <input type="number" class="form-control" id="horsepower" name="horsepower" value="<?= esc($car['horsepower']) ?>" required>
+            </div>
+            <div class="col-md-4">
+                <label for="torque" class="form-label">Torque</label>
+                <input type="number" class="form-control" id="torque" name="torque" value="<?= esc($car['torque']) ?>" required>
+            </div>
+            <div class="col-md-4">
+                <label for="top_speed" class="form-label">Top Speed (km/h)</label>
+                <input type="number" class="form-control" id="top_speed" name="top_speed" value="<?= esc($car['top_speed']) ?>" required>
+            </div>
+            <div class="col-md-4">
+                <label for="acceleration" class="form-label">0-100 km/h (s)</label>
+                <input type="text" class="form-control" id="acceleration" name="acceleration" value="<?= esc($car['acceleration']) ?>" required>
+            </div>
+            <div class="col-md-4">
+                <label for="fuel_type" class="form-label">Fuel Type</label>
+                <input type="text" class="form-control" id="fuel_type" name="fuel_type" value="<?= esc($car['fuel_type']) ?>" required>
+            </div>
+            <div class="col-md-4">
+                <label for="doors" class="form-label">Doors</label>
+                <input type="number" class="form-control" id="doors" name="doors" value="<?= esc($car['doors']) ?>" required>
+            </div>
+            <div class="col-md-4">
+                <label for="seats" class="form-label">Seats</label>
+                <input type="number" class="form-control" id="seats" name="seats" value="<?= esc($car['seats']) ?>" required>
+            </div>
+            <div class="col-12">
+                <label for="description" class="form-label">Description</label>
+                <textarea class="form-control" id="description" name="description" rows="3" required><?= esc($car['description']) ?></textarea>
+            </div>
+            <div class="col-12">
+                <div class="form-check mb-2">
+                    <input class="form-check-input" type="checkbox" id="featured" name="featured" value="1" <?= $car['featured'] ? 'checked' : '' ?>>
                     <label class="form-check-label" for="featured">Featured Car</label>
                 </div>
-                
-                <div class="mb-3">
-                    <label class="form-label">Current Images</label>
-                    <div class="row">
-                        <?php foreach ($images as $image): ?>
-                        <div class="col-md-3 mb-3">
-                            <div class="card">
-                                <img src="/<?= $image['image_path'] ?>" class="card-img-top" alt="Car Image">
-                                <div class="card-body text-center">
-                                    <div class="form-check">
-                                        <input class="form-check-input" type="radio" name="primary_image" id="primary_<?= $image['id'] ?>" value="<?= $image['id'] ?>" <?= $image['is_primary'] ? 'checked' : '' ?>>
-                                        <label class="form-check-label" for="primary_<?= $image['id'] ?>">
-                                            Primary
-                                        </label>
-                                    </div>
-                                    <a href="/admin/cars/delete-image/<?= $image['id'] ?>" class="btn btn-sm btn-outline-danger mt-2" onclick="return confirm('Are you sure?')">
-                                        <i class="fas fa-trash"></i> Delete
-                                    </a>
-                                </div>
-                            </div>
-                        </div>
-                        <?php endforeach; ?>
+            </div>
+        </div>
+        <!-- Image Uploads -->
+        <div class="row mt-4">
+            <div class="col-md-6 mb-3">
+                <label for="featured_image" class="form-label">Featured Image</label>
+                <input type="file" class="form-control" id="featured_image" name="featured_image" accept="image/*">
+                <?php if (!empty($featuredImage)): ?>
+                    <div class="position-relative d-inline-block mt-2">
+                        <img src="<?= esc($featuredImage) ?>" alt="Current Featured" class="img-fluid" style="max-height:150px;">
+                        <a href="/admin/cars/delete-image/<?= $car['id'] ?>/featured" class="btn btn-sm btn-danger position-absolute top-0 end-0" onclick="return confirm('Remove featured image?')">
+                            <i class="fas fa-times"></i>
+                        </a>
                     </div>
+                <?php endif; ?>
+                <img id="featuredPreview" src="#" alt="Featured Preview" class="img-fluid mt-2 d-none" style="max-height:150px;">
+            </div>
+            <div class="col-md-6 mb-3">
+                <label for="gallery_images" class="form-label">Gallery Images (up to 6)</label>
+                <input type="file" class="form-control" id="gallery_images" name="gallery_images[]" accept="image/*" multiple>
+                <div id="galleryPreview" class="d-flex flex-wrap gap-2 mt-2">
+                    <?php if (!empty($galleryImages)): ?>
+                        <?php foreach ($galleryImages as $i => $img): ?>
+                            <div class="position-relative d-inline-block" data-existing>
+                                <img src="<?= esc($img) ?>" class="img-thumbnail" style="width:80px;height:60px;object-fit:cover;">
+                                <a href="/admin/cars/delete-image/<?= $car['id'] ?>/gallery/<?= $i+1 ?>" class="btn btn-sm btn-danger position-absolute top-0 end-0" onclick="return confirm('Remove this image?')">
+                                    <i class="fas fa-times"></i>
+                                </a>
+                            </div>
+                        <?php endforeach; ?>
+                    <?php endif; ?>
                 </div>
-                
-                <div class="mb-3">
-                    <label for="images" class="form-label">Add More Images</label>
-                    <input type="file" class="form-control" id="images" name="images[]" multiple>
-                    <div class="form-text">Upload additional images (max 10MB each)</div>
-                </div>
-                
-                <button type="submit" class="btn btn-primary">Update Car</button>
-                <a href="/admin/cars" class="btn btn-secondary">Cancel</a>
-            </form>
-        </main>
-    </div>
+            </div>
+        </div>
+        <button type="submit" class="btn btn-primary mt-3">Update Car</button>
+    </form>
 </div>
+<script>
+const featuredInput = document.getElementById('featured_image');
+featuredInput.onchange = function(evt) {
+    const [file] = this.files;
+    if (file) {
+        const preview = document.getElementById('featuredPreview');
+        preview.src = URL.createObjectURL(file);
+        preview.classList.remove('d-none');
+    }
+};
+// Gallery images preview and remove (for new uploads)
+const galleryInput = document.getElementById('gallery_images');
+const galleryPreview = document.getElementById('galleryPreview');
+let galleryFiles = [];
 
+galleryInput.addEventListener('change', function(evt) {
+    galleryFiles = Array.from(this.files).slice(0, 6);
+    renderGalleryPreview();
+});
+
+function renderGalleryPreview() {
+    // Keep existing images (from server) in preview
+    const existing = Array.from(galleryPreview.querySelectorAll('.position-relative.d-inline-block[data-existing]'));
+    galleryPreview.innerHTML = '';
+    existing.forEach(el => galleryPreview.appendChild(el));
+    // Add new previews
+    galleryFiles.forEach((file, idx) => {
+        const wrapper = document.createElement('div');
+        wrapper.className = 'position-relative d-inline-block';
+        const img = document.createElement('img');
+        img.src = URL.createObjectURL(file);
+        img.className = 'img-thumbnail';
+        img.style = 'width:80px;height:60px;object-fit:cover;';
+        const btn = document.createElement('button');
+        btn.type = 'button';
+        btn.className = 'btn btn-sm btn-danger position-absolute top-0 end-0';
+        btn.innerHTML = '<i class="fas fa-times"></i>';
+        btn.onclick = function() {
+            galleryFiles.splice(idx, 1);
+            updateGalleryInput();
+            renderGalleryPreview();
+        };
+        wrapper.appendChild(img);
+        wrapper.appendChild(btn);
+        galleryPreview.appendChild(wrapper);
+    });
+}
+
+function updateGalleryInput() {
+    const dt = new DataTransfer();
+    galleryFiles.forEach(f => dt.items.add(f));
+    galleryInput.files = dt.files;
+}
+</script>
 <?= view('admin/templates/footer') ?>

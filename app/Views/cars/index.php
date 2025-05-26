@@ -155,7 +155,15 @@
                         <?php endif; ?>
                         
                         <div class="car-image-container">
-                            <img src="/assets/images/cars/<?= $car['id'] ?>/1.jpg" class="card-img-top" alt="<?= $car['make'] ?> <?= $car['model'] ?>">
+                            <?php
+                            $featuredPath = '/assets/images/cars/' . $car['id'] . '/featured.jpg';
+                            if (file_exists(FCPATH . ltrim($featuredPath, '/'))) {
+                                $imgSrc = $featuredPath;
+                            } else {
+                                $imgSrc = '/assets/images/cars/' . $car['id'] . '/1.jpg'; // fallback
+                            }
+                            ?>
+                            <img src="<?= $imgSrc ?>" class="card-img-top" alt="<?= $car['make'] ?> <?= $car['model'] ?>">
                             <div class="car-overlay">
                                 <a href="/cars/<?= $car['id'] ?>" class="btn btn-primary btn-sm">View Details</a>
                             </div>
@@ -196,7 +204,7 @@
 </section>
 
 <!-- Call to Action -->
-<section class="py-5 bg-primary text-white text-center">
+<section class="py-5 text-dark text-center" style="background-color: #c9a227;">
     <div class="container">
         <h2 class="display-5 mb-4">CAN'T FIND WHAT YOU'RE LOOKING FOR?</h2>
         <p class="lead mb-4">We have access to exclusive vehicles not listed online. Contact us to locate your dream car.</p>
