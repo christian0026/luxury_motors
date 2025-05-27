@@ -97,6 +97,7 @@ class Admin extends BaseController
             'seats' => $this->request->getPost('seats'),
             'description' => $this->request->getPost('description'),
             'featured' => $this->request->getPost('featured') ? 1 : 0,
+            'sold' => 0,
             'created_at' => date('Y-m-d H:i:s')
         ];
 
@@ -110,6 +111,13 @@ class Admin extends BaseController
         $featured = $this->request->getFile('featured_image');
         if ($featured && $featured->isValid() && !$featured->hasMoved()) {
             $featured->move($carDir, 'featured.jpg', true);
+            // Insert into car_images table
+            $this->carImagesModel->insert([
+                'car_id' => $carId,
+                'image_path' => 'assets/images/cars/' . $carId . '/featured.jpg',
+                'is_primary' => 1,
+                'uploaded_at' => date('Y-m-d H:i:s')
+            ]);
         }
 
         // Gallery images
@@ -119,6 +127,13 @@ class Admin extends BaseController
             foreach ($gallery['gallery_images'] as $img) {
                 if ($img->isValid() && !$img->hasMoved() && $i <= 6) {
                     $img->move($carDir, $i . '.jpg', true);
+                    // Insert into car_images table
+                    $this->carImagesModel->insert([
+                        'car_id' => $carId,
+                        'image_path' => 'assets/images/cars/' . $carId . '/' . $i . '.jpg',
+                        'is_primary' => 0,
+                        'uploaded_at' => date('Y-m-d H:i:s')
+                    ]);
                     $i++;
                 }
             }
@@ -201,6 +216,7 @@ class Admin extends BaseController
             'seats' => $this->request->getPost('seats'),
             'description' => $this->request->getPost('description'),
             'featured' => $this->request->getPost('featured') ? 1 : 0,
+            'sold' => $this->request->getPost('sold') ? 1 : 0,
             'updated_at' => date('Y-m-d H:i:s')
         ];
         $this->carsModel->update($id, $carData);
@@ -210,21 +226,43 @@ class Admin extends BaseController
         $featured = $this->request->getFile('featured_image');
         if ($featured && $featured->isValid() && !$featured->hasMoved()) {
             $featured->move($carDir, 'featured.jpg', true);
+            // Upsert into car_images table
+            $existing = $this->carImagesModel->where('car_id', $id)->where('is_primary', 1)->first();
+            if ($existing) {
+                $this->carImagesModel->update($existing['id'], [
+                    'image_path' => 'assets/images/cars/' . $id . '/featured.jpg',
+                    'uploaded_at' => date('Y-m-d H:i:s')
+                ]);
+            } else {
+                $this->carImagesModel->insert([
+                    'car_id' => $id,
+                    'image_path' => 'assets/images/cars/' . $id . '/featured.jpg',
+                    'is_primary' => 1,
+                    'uploaded_at' => date('Y-m-d H:i:s')
+                ]);
+            }
         }
         // Gallery images
         $gallery = $this->request->getFiles('gallery_images');
         if ($gallery && isset($gallery['gallery_images'])) {
-            // Remove old gallery images
+            // Remove old gallery images (files and db)
             for ($i = 1; $i <= 6; $i++) {
                 $imgPath = $carDir . $i . '.jpg';
                 if (file_exists($imgPath)) {
                     unlink($imgPath);
                 }
+                $this->carImagesModel->where('car_id', $id)->where('image_path', 'assets/images/cars/' . $id . '/' . $i . '.jpg')->delete();
             }
             $i = 1;
             foreach ($gallery['gallery_images'] as $img) {
                 if ($img->isValid() && !$img->hasMoved() && $i <= 6) {
                     $img->move($carDir, $i . '.jpg', true);
+                    $this->carImagesModel->insert([
+                        'car_id' => $id,
+                        'image_path' => 'assets/images/cars/' . $id . '/' . $i . '.jpg',
+                        'is_primary' => 0,
+                        'uploaded_at' => date('Y-m-d H:i:s')
+                    ]);
                     $i++;
                 }
             }
@@ -256,18 +294,29 @@ class Admin extends BaseController
     public function deleteImage($carId, $type, $index = null)
     {
         $carDir = ROOTPATH . 'public/assets/images/cars/' . $carId . '/';
+        $imgPath = '';
+        $dbPath = '';
+
         if ($type === 'featured') {
             $imgPath = $carDir . 'featured.jpg';
+            $dbPath = 'assets/images/cars/' . $carId . '/featured.jpg';
         } elseif ($type === 'gallery' && $index) {
             $imgPath = $carDir . $index . '.jpg';
+            $dbPath = 'assets/images/cars/' . $carId . '/' . $index . '.jpg';
         } else {
             return redirect()->back()->with('error', 'Invalid image type.');
         }
+
+        // Remove file
         if (file_exists($imgPath)) {
             unlink($imgPath);
-            return redirect()->back()->with('message', 'Image removed.');
         }
-        return redirect()->back()->with('error', 'Image not found.');
+
+        // Remove from car_images table if exists
+        $this->carImagesModel->where('car_id', $carId)->where('image_path', $dbPath)->delete();
+
+        // Redirect back to edit page
+        return redirect()->to('/admin/cars/edit/' . $carId)->with('message', 'Image removed.');
     }
 
     protected function setPrimaryImage($carId)

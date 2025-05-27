@@ -80,6 +80,10 @@
                     <input class="form-check-input" type="checkbox" id="featured" name="featured" value="1">
                     <label class="form-check-label" for="featured">Featured Car</label>
                 </div>
+                <div class="form-check mb-2">
+                    <input class="form-check-input" type="checkbox" id="sold" name="sold" value="1">
+                    <label class="form-check-label" for="sold">Mark as Sold</label>
+                </div>
             </div>
         </div>
         <!-- Image Uploads -->

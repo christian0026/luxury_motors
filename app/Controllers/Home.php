@@ -2,13 +2,17 @@
 
 namespace App\Controllers;
 
+use App\Models\CarsModel;
+
 class Home extends BaseController
 {
     public function index()
     {
+        $carsModel = new CarsModel();
+        $featuredCars = $carsModel->where('featured', 1)->where('sold', 0)->findAll();
         $data = [
             'title' => 'Luxury Motors | Premium Car Dealership',
-            'featuredCars' => $this->getFeaturedCars()
+            'featuredCars' => $featuredCars
         ];
         
         return view('templates/header', $data)

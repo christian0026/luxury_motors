@@ -31,33 +31,39 @@
 </section>
 
 <!-- Featured Cars Section -->
-<section class="py-5 style="background-color: #393E46;">
+<section class="py-5" style="background-color: black;">
     <div class="container">
         <div class="text-center mb-5">
             <h2 class="section-title">FEATURED VEHICLES</h2>
             <p class="section-subtitle">A selection of our finest automobiles</p>
         </div>
-        
         <div class="row g-4">
             <?php foreach ($featuredCars as $car): ?>
             <div class="col-md-4">
                 <div class="card car-card h-100">
                     <div class="badge bg-primary position-absolute top-0 end-0 m-2">Featured</div>
-                    <img src="/assets/images/cars/<?= $car['image'] ?>" class="card-img-top" alt="<?= $car['model'] ?>">
+                    <?php
+                        $featuredPath = '/assets/images/cars/' . $car['id'] . '/featured.jpg';
+                        if (file_exists(FCPATH . ltrim($featuredPath, '/'))) {
+                            $imgSrc = $featuredPath;
+                        } else {
+                            $imgSrc = '/assets/images/cars/' . $car['id'] . '/1.jpg';
+                        }
+                    ?>
+                    <img src="<?= $imgSrc ?>" class="card-img-top" alt="<?= esc($car['make']) ?> <?= esc($car['model']) ?>">
                     <div class="card-body">
-                        <h5 class="card-title"><?= $car['model'] ?></h5>
+                        <h5 class="card-title"><?= esc($car['make']) ?> <?= esc($car['model']) ?></h5>
                         <div class="car-specs mb-3">
-                            <span class="me-3"><i class="fas fa-calendar-alt me-1"></i> <?= $car['year'] ?></span>
-                            <span><i class="fas fa-tachometer-alt me-1"></i> <?= number_format($car['miles']) ?> mi</span>
+                            <span class="me-3"><i class="fas fa-calendar-alt me-1"></i> <?= esc($car['year']) ?></span>
+                            <span><i class="fas fa-tachometer-alt me-1"></i> <?= number_format($car['mileage']) ?> mi</span>
                         </div>
-                        <h4 class="text-primary mb-3"><?= $car['price'] ?></h4>
+                        <h4 class="text-primary mb-3">$<?= number_format($car['price']) ?></h4>
                         <a href="/cars/<?= $car['id'] ?>" class="btn btn-outline-primary w-100">View Details</a>
                     </div>
                 </div>
             </div>
             <?php endforeach; ?>
         </div>
-        
         <div class="text-center mt-4">
             <a href="/cars" class="btn btn-primary btn-lg">View All Inventory</a>
         </div>

@@ -28,17 +28,6 @@
                         Contact
                     </a>
                 </li>
-                <li class="nav-item">
-                    <?php if (session()->get('logged_in')): ?>
-                        <a class="nav-link" href="/logout">
-                            <i class="fas fa-sign-out-alt"></i> Logout
-                        </a>
-                    <?php else: ?>
-                        <a class="nav-link <?= url_is('login') ? 'active' : '' ?>" href="/login">
-                            <i class="fas fa-user"></i> Login
-                        </a>
-                    <?php endif; ?>
-                </li>
             </ul>
         </div>
     </div>
