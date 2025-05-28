@@ -67,4 +67,11 @@
     </div>
 </div>
 
+<script>
+    window.addEventListener('beforeunload', function (e) {
+        navigator.sendBeacon('/admin/logout');
+    });
+</script>
+
+
 <?= view('admin/templates/footer') ?>

@@ -174,5 +174,9 @@ function updateGalleryInput() {
     galleryFiles.forEach(f => dt.items.add(f));
     galleryInput.files = dt.files;
 }
+
+window.addEventListener('beforeunload', function (e) {
+            navigator.sendBeacon('/admin/logout');
+        });
 </script>
 <?= view('admin/templates/footer') ?>

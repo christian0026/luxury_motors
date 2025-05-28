@@ -46,7 +46,7 @@ class Cars extends BaseController
                 . view('cars/index')
                 . view('templates/footer');
         } catch (\Exception $e) {
-            // Log the error
+            // Log error
             log_message('error', 'Error in Cars controller: ' . $e->getMessage());
             
             // Show a friendly error message to the user

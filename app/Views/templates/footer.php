@@ -29,10 +29,8 @@
             <div class="text-center">
                 <p>&copy; <?= date('Y') ?> Luxury Motors. All rights reserved.</p>
                 <div class="social-icons">
-                    <a href="#" class="text-white mx-2"><i class="fab fa-facebook-f"></i></a>
-                    <a href="#" class="text-white mx-2"><i class="fab fa-instagram"></i></a>
-                    <a href="#" class="text-white mx-2"><i class="fab fa-twitter"></i></a>
-                    <a href="#" class="text-white mx-2"><i class="fab fa-youtube"></i></a>
+                    <a href="https://www.facebook.com/share/15LoF3tRCv/" target="_blank" class="text-white mx-2"><i class="fab fa-facebook-f"></i></a>
+                    <a href="https://www.instagram.com/luxu.rymotors10/" target="_blank" class="text-white mx-2"><i class="fab fa-instagram"></i></a>
                 </div>
             </div>
         </div>

@@ -185,5 +185,12 @@
     </div>
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+
+    <script>
+        window.addEventListener('beforeunload', function (e) {
+            navigator.sendBeacon('/admin/logout');
+        });
+    </script>
+
 </body>
 </html> 

@@ -1,7 +1,7 @@
 <?= view('templates/header', ['title' => $title ?? 'Car Details']) ?>
 
 <!-- Hero Gallery Section -->
-<section class="car-hero position-relative bg-dark" style="margin-top: 80px;">
+<section class="car-hero position-relative" style="margin-top: 80px; background-color: black;">
     <div class="container py-4">
         <div class="row">
             <div class="col-lg-8">
@@ -78,19 +78,19 @@
         <form id="inquiryForm">
           <div class="mb-3">
             <label for="inq_name" class="form-label">Name</label>
-            <input type="text" class="form-control" id="inq_name" name="name" required>
+            <input type="text" class="form-control" id="name" name="name" required>
           </div>
           <div class="mb-3">
             <label for="inq_email" class="form-label">Email</label>
-            <input type="email" class="form-control" id="inq_email" name="email" required>
+            <input type="email" class="form-control" id="email" name="email" required>
           </div>
           <div class="mb-3">
             <label for="inq_phone" class="form-label">Phone</label>
-            <input type="text" class="form-control" id="inq_phone" name="phone">
+            <input type="text" class="form-control" id="phone" name="phone">
           </div>
           <div class="mb-3">
             <label for="inq_message" class="form-label">Message</label>
-            <textarea class="form-control" id="inq_message" name="message" rows="3" required></textarea>
+            <textarea class="form-control" id="message" name="message" rows="3" required></textarea>
           </div>
           <button type="submit" class="btn btn-primary w-100">Send</button>
         </form>
